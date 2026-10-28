@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="color-scheme" content="light"><title>Что съесть сегодня?</title>
+<style>
+:root{color-scheme:light;--bg:#fff8ec;--fg:#2b2419;--ac:#ef6c35;--card:#fff;--bd:#f1e3c8;--mut:#7d705c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--bg);color:var(--fg);font:17px/1.5 Georgia,serif;display:flex;justify-content:center}
+.w{width:100%;max-width:480px;padding:28px 20px;text-align:center}h1{font-size:34px;line-height:1.1;margin:10px 0 6px}.m{color:var(--mut);font:15px system-ui,sans-serif;margin:0 0 22px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:22px}.chips button{border:1.5px solid var(--ac);background:#fff;color:var(--ac);border-radius:99px;padding:8px 16px;font:600 14px system-ui,sans-serif}.chips button.on{background:var(--ac);color:#fff}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:28px;padding:34px 22px;min-height:230px;display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:0 10px 30px #ef6c3514}
+.e{font-size:76px;line-height:1;transition:transform .2s}.card.spin .e{transform:scale(.7) rotate(-12deg)}.n{font-size:28px;font-weight:700;margin:12px 0 4px}.d{color:var(--mut);font:15px system-ui,sans-serif}
+.go{margin-top:22px;width:100%;border:0;border-radius:999px;background:var(--ac);color:#fff;padding:16px;font:700 17px system-ui,sans-serif}.go:active{transform:scale(.98)}
+.h{margin-top:18px;color:var(--mut);font:14px system-ui,sans-serif}
+</style></head><body><div class="w"><h1>Что съесть сегодня?</h1><p class="m">Не можете выбрать? Нажмите кнопку, и решение за вас.</p>
+<div class="chips" id="ch"></div>
+<div class="card" id="cd"><div class="e">🍽️</div><div class="n">Готовы?</div><div class="d">Нажмите «Выбрать»</div></div>
+<button class="go" id="go">Выбрать блюдо</button><div class="h" id="h"></div></div>
+<script>
+var D={"Казахское":[["🍖","Бешбармак","Мясо, лапша и сочный бульон"],["🥟","Манты","Паровые, с мясом и луком"],["🍲","Куырдак","Жареное мясо с картофелем"]],
+"Азиатское":[["🍜","Лагман","Домашняя лапша с овощами и мясом"],["🍚","Плов","Рассыпчатый рис с морковью"],["🥢","Рамен","Горячий бульон и яйцо"]],
+"Быстрое":[["🍕","Пицца","Горячая, с тянущимся сыром"],["🍔","Бургер","Сочная котлета и хрустящий салат"],["🌯","Шаурма","Быстро и сытно"]],
+"Лёгкое":[["🥗","Греческий салат","Овощи, оливки и фета"],["🍣","Роллы","Рис, рыба и нори"],["🥣","Овощной суп","Тёплый и лёгкий"]]};
+var sel={},ch=document.getElementById("ch"),cd=document.getElementById("cd"),n=0;
+Object.keys(D).forEach(function(k){sel[k]=true;var b=document.createElement("button");b.className="on";b.textContent=k;b.onclick=function(){sel[k]=!sel[k];b.className=sel[k]?"on":""};ch.appendChild(b)});
+document.getElementById("go").onclick=function(){var p=[];Object.keys(sel).forEach(function(k){if(sel[k])p=p.concat(D[k])});
+if(!p.length){document.getElementById("h").textContent="Выберите хотя бы одну кухню";return}
+cd.classList.add("spin");var t=0,iv=setInterval(function(){var x=p[Math.floor(Math.random()*p.length)];cd.innerHTML='<div class="e">'+x[0]+'</div><div class="n">'+x[1]+'</div><div class="d">'+x[2]+"</div>";if(++t>7){clearInterval(iv);cd.classList.remove("spin");n++;document.getElementById("h").textContent="Выбрано раз: "+n}},90)};
+</script></body></html>
